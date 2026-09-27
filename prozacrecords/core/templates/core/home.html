@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-dark text-white rounded-3 shadow">
+  <div class="container-fluid py-3">
+    <h1 class="display-5 fw-bold">Plataforma de Vanguardia & Música Experimental</h1>
+    <p class="col-md-8 fs-4">Sistema de gestión para la catalogación de producciones sonoras experimentales e instalaciones artísticas contemporáneas.</p>
+    <hr class="my-4">
+    <div class="d-flex gap-3">
+        <a class="btn btn-primary btn-lg" href="{% url 'lista_albumes' %}" role="button">Ver Discografía</a>
+        <a class="btn btn-outline-light btn-lg" href="{% url 'lista_instalaciones' %}" role="button">Ver Instalaciones</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>🎵 Discografía de Música Experimental</h2>
+        <!-- Botón Agregar (Visual/Marcador de posición) -->
+        <a href="#" class="btn btn-success">+ Agregar Álbum</a>
+    </div>
+
+    <!-- Barra / Botón de Búsqueda -->
+    <form class="d-flex mb-4" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar por álbum, artista o género..." aria-label="Buscar">
+        <button class="btn btn-outline-primary" type="button">Buscar</button>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Álbum</th>
+                    <th>Artista / Compositor</th>
+                    <th>Género</th>
+                    <th>Año</th>
+                    <th>País</th>
+                    <th>Formato</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for album in albumes %}
+                <tr>
+                    <td><strong>{{ album.titulo }}</strong></td>
+                    <td>{{ album.artista.nombre }}</td>
+                    <td><span class="badge bg-secondary">{{ album.genero }}</span></td>
+                    <td>{{ album.anio }}</td>
+                    <td>{{ album.artista.pais }}</td>
+                    <td>{{ album.get_formato_display }}</td>
+                    <td>
+                        <!-- Botones Modificar y Eliminar (Visuales/Marcadores) -->
+                        <a href="#" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">No hay álbumes registrados aún.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
