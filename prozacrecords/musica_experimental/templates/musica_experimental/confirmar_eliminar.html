@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 500px;">
+    <div class="card border-danger bg-dark text-white shadow">
+        <div class="card-header bg-danger text-white">
+            <h4>Confirmar Eliminación</h4>
+        </div>
+        <div class="card-body text-center">
+            <p>¿Estás seguro de que deseas eliminar permanentemente el álbum?</p>
+            <h5 class="text-warning">"{{ album.titulo }}"</h5>
+            <p class="text-muted">{{ album.artista.nombre }}</p>
+            
+            <form method="post" class="mt-4 d-flex justify-content-around">
+                {% csrf_token %}
+                <a href="{% url 'lista_albumes' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
