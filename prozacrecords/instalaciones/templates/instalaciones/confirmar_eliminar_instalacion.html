@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 500px;">
+    <div class="card border-danger bg-dark text-white shadow">
+        <div class="card-header bg-danger text-white">
+            <h4>Confirmar Eliminación</h4>
+        </div>
+        <div class="card-body text-center">
+            <p>¿Estás seguro de que deseas eliminar permanentemente esta instalación artística?</p>
+            <h5 class="text-warning">"{{ instalacion.titulo }}"</h5>
+            <p class="text-muted">{{ instalacion.artistas.nombre }} ({{ instalacion.lugar_galeria }})</p>
+            
+            <form method="post" class="mt-4 d-flex justify-content-around">
+                {% csrf_token %}
+                <a href="{% url 'lista_instalaciones' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

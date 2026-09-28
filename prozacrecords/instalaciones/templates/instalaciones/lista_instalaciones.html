@@ -2,41 +2,40 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>🎨 Registro de Instalaciones Artísticas</h2>
-    <!-- Botón AGREGAR -->
-    <a href="#" class="btn btn-success">+ Agregar Instalación</a>
+    <h2>🏛️ Catálogo de Instalaciones Artísticas</h2>
+    <a href="{% url 'crear_instalacion' %}" class="btn btn-success">+ Agregar Instalación</a>
 </div>
 
-<!-- Botón BUSCAR -->
-<form class="row g-3 mb-4" role="search" onsubmit="return false;">
+<!-- FORMULARIO BÚSQUEDA -->
+<form class="row g-3 mb-4" method="get" action="{% url 'lista_instalaciones' %}">
     <div class="col-auto">
-        <input class="form-control" type="search" placeholder="Buscar instalación o galería...">
+        <input class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar por obra, artista o galería...">
     </div>
     <div class="col-auto">
-        <button class="btn btn-primary" type="button">Buscar</button>
+        <button class="btn btn-primary" type="submit">Buscar</button>
     </div>
 </form>
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {% for inst in instalaciones %}
     <div class="col">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm border-0 bg-dark text-white">
             <div class="card-body">
-                <h5 class="card-title">{{ inst.titulo }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ inst.artistas.nombre }} ({{ inst.artistas.movimiento }})</h6>
-                <p class="card-text">{{ inst.descripcion }}</p>
-                <p class="card-text"><small class="text-muted"><strong>Lugar:</strong> {{ inst.lugar_galeria }} | <strong>Año:</strong> {{ inst.anio_exposicion }}</small></p>
+                <h5 class="card-title text-warning">{{ inst.titulo }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ inst.artistas.nombre }} ({{ inst.artistas.pais }})</h6>
+                <p class="card-text small">{{ inst.descripcion|truncatewords:25 }}</p>
+                <div class="badge bg-secondary mb-2">{{ inst.lugar_galeria }}</div>
+                <div class="text-muted small">Año: {{ inst.anio_exposicion }}</div>
             </div>
-            <div class="card-footer bg-transparent d-flex justify-content-end gap-2">
-                <!-- Botones MODIFICAR y ELIMINAR -->
-                <a href="#" class="btn btn-sm btn-outline-warning">Modificar</a>
-                <a href="#" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between p-2">
+                <a href="{% url 'editar_instalacion' inst.pk %}" class="btn btn-sm btn-outline-warning w-48">Modificar</a>
+                <a href="{% url 'eliminar_instalacion' inst.pk %}" class="btn btn-sm btn-outline-danger w-48">Eliminar</a>
             </div>
         </div>
     </div>
     {% empty %}
     <div class="col-12">
-        <p class="text-muted text-center py-4">No hay instalaciones registradas en la base de datos.</p>
+        <p class="text-muted">No se encontraron instalaciones registradas.</p>
     </div>
     {% endfor %}
 </div>
