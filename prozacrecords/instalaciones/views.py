@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import InstalacionArtistica
 from .forms import InstalacionForm
 
-# READ / BUSCAR
 def lista_instalaciones(request):
     query = request.GET.get('q', '')
     if query:
@@ -15,12 +14,12 @@ def lista_instalaciones(request):
         )
     else:
         instalaciones = InstalacionArtistica.objects.all()
+        
     return render(request, 'instalaciones/lista_instalaciones.html', {
         'instalaciones': instalaciones,
         'query': query
     })
 
-# CREATE (Agregar)
 def crear_instalacion(request):
     if request.method == 'POST':
         form = InstalacionForm(request.POST)
@@ -34,7 +33,6 @@ def crear_instalacion(request):
         'titulo_pagina': 'Agregar Instalación Artística'
     })
 
-# UPDATE (Editar)
 def editar_instalacion(request, pk):
     instalacion = get_object_or_404(InstalacionArtistica, pk=pk)
     if request.method == 'POST':
@@ -49,7 +47,6 @@ def editar_instalacion(request, pk):
         'titulo_pagina': 'Modificar Instalación Artística'
     })
 
-# DELETE (Eliminar)
 def eliminar_instalacion(request, pk):
     instalacion = get_object_or_404(InstalacionArtistica, pk=pk)
     if request.method == 'POST':
